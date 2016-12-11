@@ -48,6 +48,16 @@ public class SettingsFragment extends PreferenceFragment {
         mPassword = (EditTextPreference) getPreferenceManager().findPreference("email_password");
         mVersion = getPreferenceManager().findPreference("version");
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
+    }
+
+    private void init() {
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         mVersion.setTitle("版本号: " + Tools.getVersionName(mContext));
@@ -131,11 +141,11 @@ public class SettingsFragment extends PreferenceFragment {
         });
 
 
-        if(!sharedPreferences.getString("email_password", "").isEmpty())  mPassword.setSummary(sharedPreferences.getString("email_password", ""));
+        //if(!sharedPreferences.getString("email_password", "").isEmpty())  mPassword.setSummary(sharedPreferences.getString("email_password", ""));
         mPassword.setOnPreferenceChangeListener((preference, o) -> {
             String password = (String) o;
             if (!password.isEmpty()) {
-                //mPassword.setSummary(password);
+                //      mPassword.setSummary(password);
                 return true;
             } else {
                 return false;
@@ -170,6 +180,5 @@ public class SettingsFragment extends PreferenceFragment {
             }
             return true;
         });
-
     }
 }

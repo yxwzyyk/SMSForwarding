@@ -37,7 +37,7 @@ public class Tools {
         ActivityManager activityManager = (ActivityManager)
                 mContext.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> serviceList
-                = activityManager.getRunningServices(30);
+                = activityManager.getRunningServices(Integer.MAX_VALUE);
 
         if (!(serviceList.size()>0)) {
             return false;
