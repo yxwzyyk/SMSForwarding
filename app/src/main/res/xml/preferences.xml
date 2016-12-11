@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="设置">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="start"
+            android:summaryOff="停止转发"
+            android:summaryOn="开始转发"
+            android:title="短信转发"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="boot"
+            android:title="开机自启"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="is_phone"
+            android:title="转发到手机"/>
+        <EditTextPreference
+            android:key="phone"
+            android:inputType="phone"
+            android:title="设置接收手机号"/>
+
+        <SwitchPreference
+            android:defaultValue=""
+            android:key="is_email"
+            android:title="转发到Email"/>
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="email"
+            android:inputType="textEmailAddress"
+            android:title="设置接收Email地址"/>
+
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="关于">
+        <Preference
+            android:key="version"
+            android:summary="By: yyk"
+            android:title=""/>
+    </PreferenceCategory>
+</PreferenceScreen>
