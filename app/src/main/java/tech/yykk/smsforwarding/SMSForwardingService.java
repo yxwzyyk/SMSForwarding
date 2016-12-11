@@ -58,7 +58,7 @@ public class SMSForwardingService extends Service {
     public static class SMSHandler extends Handler {
         WeakReference<Service> mServiceWeakReference;
 
-        public SMSHandler(Service service) {
+        SMSHandler(Service service) {
             mServiceWeakReference = new WeakReference<>(service);
         }
 

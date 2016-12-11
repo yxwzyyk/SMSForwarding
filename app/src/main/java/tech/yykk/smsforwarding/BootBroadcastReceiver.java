@@ -3,7 +3,6 @@ package tech.yykk.smsforwarding;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -12,17 +11,14 @@ import android.preference.PreferenceManager;
  */
 
 public class BootBroadcastReceiver extends BroadcastReceiver {
-    IntentFilter receiveFilter = new IntentFilter();
-    SMSBroadcastReceiver smsBroadcastReceiver = new SMSBroadcastReceiver();
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        receiveFilter.addAction(SMSBroadcastReceiver.ACTION);
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if(sharedPreferences.getBoolean("boot", false)) {
-            context.registerReceiver(smsBroadcastReceiver, receiveFilter);
+            context.startService(new Intent(context, SMSForwardingService.class));
         }
     }
 }
