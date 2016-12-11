@@ -13,26 +13,50 @@
             android:key="boot"
             android:title="开机自启"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="手机">
         <SwitchPreference
             android:defaultValue="false"
             android:key="is_phone"
             android:title="转发到手机"/>
         <EditTextPreference
-            android:key="phone"
             android:inputType="phone"
-            android:title="设置接收手机号"/>
-
+            android:key="phone"
+            android:title="接收手机号"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="邮箱">
         <SwitchPreference
-            android:defaultValue=""
+            android:defaultValue="false"
             android:key="is_email"
             android:title="转发到Email"/>
         <EditTextPreference
             android:defaultValue=""
-            android:key="email"
             android:inputType="textEmailAddress"
-            android:title="设置接收Email地址"/>
+            android:key="email"
+            android:title="接收Email地址"/>
 
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="textEmailAddress"
+            android:key="email_smtp"
+            android:title="发送Email SMTP 服务器地址"/>
 
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="numberSigned"
+            android:key="email_post"
+            android:title="端口"/>
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="text"
+            android:key="email_user"
+            android:title="邮箱账号"/>
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="textPassword"
+            android:key="email_password"
+            android:title="邮箱密码"/>
 
     </PreferenceCategory>
 

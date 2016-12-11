@@ -15,6 +15,8 @@ import android.telephony.SmsManager;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import javax.mail.MessagingException;
+
 /**
  * Created by yyk on 11/12/2016.
  */
@@ -69,15 +71,19 @@ public class SMSForwardingService extends Service {
             String fullMessage = bundle.getString("fullMessage");
 
 
-            if(service != null) {
+            if (service != null) {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(service);
                 boolean isPhone = sharedPreferences.getBoolean("is_phone", false);
                 boolean isEmail = sharedPreferences.getBoolean("is_email", false);
                 String phone = sharedPreferences.getString("phone", "");
                 String email = sharedPreferences.getString("email", "");
+                String smtp = sharedPreferences.getString("email_smtp","");
+                String post = sharedPreferences.getString("email_post","");
+                String user = sharedPreferences.getString("email_user","");
+                String password = sharedPreferences.getString("email_password","");
 
-                if(isPhone) {
-                    if(!phone.isEmpty()) {
+                if (isPhone) {
+                    if (!phone.isEmpty()) {
                         String context = "来至" + address + "的短信\n" + fullMessage;
                         SmsManager manager = SmsManager.getDefault();
                         ArrayList<String> list = manager.divideMessage(context);  //因为一条短信有字数限制，因此要将长短信拆分
@@ -87,8 +93,25 @@ public class SMSForwardingService extends Service {
                     }
                 }
 
-                if(isEmail) {
-
+                if (isEmail) {
+                    if (!email.isEmpty()) {
+                        new Thread(() -> {
+                            try {
+                                EmailSender sender = new EmailSender();
+                                //设置服务器地址和端口，网上搜的到
+                                sender.setProperties(smtp, post);
+                                //分别设置发件人，邮件标题和文本内容
+                                sender.setMessage(user, "来至" + address + "的短信", fullMessage);
+                                //设置收件人
+                                sender.setReceiver(new String[]{email});
+                                //发送邮件
+                                sender.sendEmail(smtp, user, password);
+                            } catch (MessagingException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }).start();
+                    }
                 }
             }
         }
